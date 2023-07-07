@@ -9,18 +9,21 @@ def red_color_string(string):
     return '\033[1m\033[31m{}\033[0m'.format(string)
 
 
-def answer_to_matrix(a: [Rectangle], size_x: int, size_y: int) -> [[int]]:
+def answer_to_matrix(answer: [Rectangle], size_x: int, size_y: int) -> [[int]]:
     field = [[0] * size_x for _ in range(size_y)]
-    for i in range(len(a)):
-        for y in range(a[i].top_left.y, a[i].top_left.y + a[i].height):
-            for x in range(a[i].top_left.x, a[i].top_left.x + a[i].width):
+    for i in range(len(answer)):
+        for y in range(answer[i].top_left.y,
+                       answer[i].top_left.y + answer[i].height):
+            for x in range(answer[i].top_left.x,
+                           answer[i].top_left.x + answer[i].width):
                 field[y][x] = i + 1
     return field
 
 
-def matrix_to_visual(m: [[int]], size_x: int, size_y: int) -> [[str]]:
+def matrix_to_visual(m: [[int]]) -> [[str]]:
     vertical_border = green_color_string('—')
     horizontal_border = green_color_string('|')
+    size_y, size_x = len(m), len(m[0])
     initial = []
     for i in range(size_y):
         initial.append(
@@ -49,3 +52,7 @@ def matrix_to_visual(m: [[int]], size_x: int, size_y: int) -> [[str]]:
                      initial[y + 1][x] != horizontal_border):
                 initial[y][x] = vertical_border
     return initial
+
+
+def answer_to_visual(answer: [Rectangle], size_x: int, size_y: int) -> [[str]]:
+    return matrix_to_visual(answer_to_matrix(answer, size_x, size_y))

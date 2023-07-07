@@ -6,10 +6,14 @@ from src.visualizer import *
 
 
 class TestPuzzleGenerator(unittest.TestCase):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.path_to_generated_puzzle_file = "../generated_puzzle.txt"
+
     def test_all_puzzles_have_solution(self):
         for i in range(10):
-            generate_puzzle()
-            with open("generated_puzzle.txt", "r") as file:
+            generate_puzzle(self.path_to_generated_puzzle_file)
+            with open(self.path_to_generated_puzzle_file, "r") as file:
                 numbers_list, size_x, size_y = parse_file(file)
                 answers = []
                 for numbers in numbers_list:
@@ -19,8 +23,8 @@ class TestPuzzleGenerator(unittest.TestCase):
     def test_puzzles_have_provided_length_and_width(self):
         for i in range(1, 8):
             for j in range(i, 8):
-                generate_puzzle(i, j)
-                with open("generated_puzzle.txt", "r") as file:
+                generate_puzzle(self.path_to_generated_puzzle_file, i, j)
+                with open(self.path_to_generated_puzzle_file, "r") as file:
                     numbers_list, size_x, size_y = parse_file(file)
                     self.assertTrue(size_x == i and size_y == j)
 
@@ -70,7 +74,7 @@ class TestVisualizer(unittest.TestCase):
     def test_matrix_to_visual_multiplies_dimensions(self):
         rs = [Rectangle(Point(0, 0), 1, 1), Rectangle(Point(2, 2), 3, 8)]
         matrix = answer_to_matrix(rs, 10, 23)
-        x = matrix_to_visual(matrix, 10, 23)
+        x = matrix_to_visual(matrix)
         self.assertTrue(len(x) == 47 and len(x[0]) == 21)
 
 

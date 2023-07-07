@@ -2,7 +2,8 @@ from random import randint, choice
 from src.solver import Rectangle, Point
 
 
-def generate_puzzle(size_x=randint(5, 8), size_y=randint(5, 8)):
+def generate_puzzle(file_to_write_path: str, size_x=randint(5, 8),
+                    size_y=randint(5, 8)) -> None:
     def get_lucky():
         return randint(1, 4) == 1
 
@@ -52,13 +53,13 @@ def generate_puzzle(size_x=randint(5, 8), size_y=randint(5, 8)):
         x_r = randint(r.top_left.x, r.top_left.x + r.width - 1)
         if throw_coin() and get_lucky():
             sign = choice(['<', '>'])
-            if sign == '<':
-                value = randint(r.width * r.height + 1, size_x * size_y + 1)
-            else:
+            if sign == '>' and r.width * r.height > 1:
                 value = randint(1, r.width * r.height - 1)
+            else:
+                value = randint(r.width * r.height + 1, size_x * size_y + 1)
             field[y_r][x_r] = sign + str(value)
         else:
             field[y_r][x_r] = str(r.width * r.height)
-    with open("src/generated_puzzle.txt", "w") as file:
+    with open(file_to_write_path, "w") as file:
         for line in field:
             file.write(' '.join(line) + '\n')

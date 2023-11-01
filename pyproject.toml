@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "primitiveshikakusolver"
+version = "0.1.0"
+description = "Primitive Shikaku Solver"
+authors = ["KakTamTebya <92436562+KakTamTebya@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+colorama = "^0.4.6"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^3.0.2"
+autopep8 = "^2.0.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

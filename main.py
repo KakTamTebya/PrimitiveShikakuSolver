@@ -1,7 +1,8 @@
-from colorama import init
 import argparse
+from colorama import init
 from src.solver import solve
-from src.visualizer import *
+from src.visualizer import answer_to_visual, \
+    green_color_string, red_color_string
 from src.file_parser import parse_file
 from src.puzzle_generator import generate_puzzle
 
@@ -31,7 +32,7 @@ def execute_cli_script():
         generate_puzzle("src/generated_puzzle.txt")
         with open("src/generated_puzzle.txt", "r") as file:
             print(green_color_string("Generated puzzle:"))
-            print(*[line for line in file], sep='')
+            print(*list(file), sep='')
             file.seek(0)
             numbers_list, size_x, size_y = parse_file(file)
             print(green_color_string("Solutions:"))
